@@ -9,14 +9,10 @@ namespace Icekson\InAppPurchaseTest;
 
 use Icekson\Config\ConfigAdapter;
 use Icekson\InAppPurchase\Config\AppleVerificationConfig;
-use Icekson\InAppPurchase\Google\GooglePaymentData;
 use Icekson\InAppPurchase\Config\Factory;
 use Icekson\InAppPurchase\Config\GoogleVerificationConfig;
 use Icekson\InAppPurchase\Google\VerificationByApiCall;
-use Icekson\InAppPurchase\PaymentData;
 use Icekson\InAppPurchase\PaymentValidator;
-use Icekson\InAppPurchase\Strategy\VerificationBySignature;
-use PHPUnit\Framework\Assert;
 
 class PaymentValidatorTest extends \PHPUnit\Framework\TestCase
 {
