@@ -66,9 +66,9 @@ if($validator->verify()){
     "google":{
       "package_name": "package name of your appclication",
       "public_key": "... public key for your project, given from Google Console ...",
-      "api_access_key": "./data/keys/google_android_developer_api.json", // path to private key configuration, given from Google Console 
+      "api_access_key": "./data/keys/google_android_developer_api.json", /*path to private key configuration, given from Google Console*/ 
       "verification_type": "api",
-      "signature_algorithm": 7 // sha256, used for VerificationBySignature strategy only
+      "signature_algorithm": 7 /*sha256, used for VerificationBySignature strategy only*/
 
     },
     "apple": {
