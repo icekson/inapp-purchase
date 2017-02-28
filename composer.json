@@ -1,0 +1,26 @@
+{
+    "name": "icekson/inapp-purchase",
+    "description": "Simple library for verification of in-app purchases on server side",    
+    "require": {
+        "google/apiclient": "^2.1",
+		"icekson/utils": "dev-master",
+        "guzzlehttp/guzzle": "~5.2|~6.0",
+        "guzzlehttp/psr7": "^1.2"
+    },
+    "authors": [
+        {
+            "name": "Alexey Itsekson",
+            "email": "icekson@inbox.ru"
+        }
+    ],
+	"autoload" : {
+		"psr-4": {
+            "Icekson\\InAppPurchase\\": "src/",
+			"Icekson\\InAppPurchaseTest\\": "tests/InAppPurchaseTest"
+        }
+	},
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpunit/phpunit": "6.0"
+    }
+}

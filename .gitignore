@@ -1,4 +1,7 @@
 # Composer files
 composer.phar
 vendor/
-
+composer.lock
+tests/data/keys/**/*
+.idea/
+tests/config.json
