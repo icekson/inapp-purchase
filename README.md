@@ -1,9 +1,8 @@
-###OVERVIEW
 
+### OVERVIEW
 Main purpose of current library is verification of in-app purchases from GooglePlay and AppStore on server side
 
-###USAGE
-
+### USAGE
 To verify purchase from GooglePlay we will be use `google/apiclient` package. First you need to create service account in google console, for more details see the following topic https://developers.google.com/api-client-library/php/auth/service-accounts#creatinganaccount
 
 When you configured service account you will be able to verify purchases via `https://www.googleapis.com/auth/androidpublisher` API as the following:
