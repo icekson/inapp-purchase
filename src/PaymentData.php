@@ -18,6 +18,8 @@ interface PaymentData
     public function getRawData();
 
     public function getTransactionId();
+	
+	public function getPurchaseToken();
 
     public function getPayload();
 }

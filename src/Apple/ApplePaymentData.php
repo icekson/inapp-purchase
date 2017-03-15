@@ -56,6 +56,11 @@ class ApplePaymentData implements PaymentData
     {
         $this->payload = $payload;
     }
+	
+	public function getPurchaseToken()
+	{
+		return $this->receiptData;
+	}
 
     /**
      * @return mixed

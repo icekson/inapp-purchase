@@ -52,6 +52,8 @@ class GooglePaymentData implements PaymentData
     protected $orderId;
 
     protected $transactionId;
+	
+	protected $purchaseToken;
 
     protected $errors = [];
 
@@ -82,7 +84,7 @@ class GooglePaymentData implements PaymentData
 
             $this->transactionId = $data->TransactionID;
             $this->responseCode = $tmp->purchaseState;
-            $this->nonce = $tmp->purchaseToken;
+            $this->purchaseToken = $tmp->purchaseToken;
             $this->packageName = $tmp->packageName;
             $this->productId = $tmp->productId;
             $this->timestamp = $tmp->purchaseTime;
@@ -105,7 +107,7 @@ class GooglePaymentData implements PaymentData
             throw new \InvalidArgumentException("Invalid parameter responseCode");
         }
         if (!isset($json->purchaseToken) || empty($json->purchaseToken)) {
-            throw new \InvalidArgumentException("Invalid parameter nonce");
+            throw new \InvalidArgumentException("Invalid parameter purchaseToken");
         }
 
         if (!isset($json->packageName) || empty($json->packageName)) {
@@ -161,6 +163,16 @@ class GooglePaymentData implements PaymentData
     public function getNonce()
     {
         return $this->nonce;
+    }
+	
+	/**
+     * Get one-time nonce
+     *
+     * @return string
+     */
+    public function getPurchaseToken()
+    {
+        return $this->purchaseToken;
     }
 
     /**
@@ -235,7 +247,7 @@ class GooglePaymentData implements PaymentData
             'orderId' => $this->orderId,
             'packageName' => $this->packageName,
             'purchaseState' => $this->responseCode,
-            'purchaseToken' => $this->nonce,
+            'purchaseToken' => $this->purchaseToken,
             'purchaseTime' => $this->timestamp,
             'signature' => $this->signature
         ];
