@@ -30,6 +30,8 @@ $validator->setStrategy($strategy);
 
 if($validator->verify()){
     // purchase is successfully verified
+    $products = $validator->getPaymentData()->getProducts(); // bought product's ids
+    $transactions = $validator->getPaymentData()->getTransactions(); // transactions ids for bought products
 }else{
     // purchase is invalid or fake
 }
@@ -52,6 +54,8 @@ $validator->setStrategy($strategy);
 
 if($validator->verify()){
     // purchase is successfully verified
+    $products = $validator->getPaymentData()->getProducts(); // bought product's ids
+    $transactions = $validator->getPaymentData()->getTransactions(); // transactions ids for bought products
 }else{
     // purchase is invalid or fake
 }
