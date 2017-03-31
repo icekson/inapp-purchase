@@ -76,6 +76,9 @@ class PaymentValidatorTest extends \PHPUnit\Framework\TestCase
 
         $res = $validator->verify();
 
+        $this->assertNotEmpty($validator->getPaymentData()->getProducts(), "there is no any product");
+        $this->assertNotEmpty($validator->getPaymentData()->getTransactions(), "there is no any transaction");
+
         $this->assertTrue($res, "Verification is not passed");
     }
 
@@ -94,6 +97,9 @@ class PaymentValidatorTest extends \PHPUnit\Framework\TestCase
         $validator->setStrategy($strategy);
 
         $res = $validator->verify();
+
+        $this->assertEmpty($validator->getPaymentData()->getProducts(), "there is should not be any productId");
+        $this->assertEmpty($validator->getPaymentData()->getTransactions(), "there is should not be any transactionId");
 
         $this->assertFalse($res, "Verification passed");
     }

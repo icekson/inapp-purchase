@@ -27,7 +27,7 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
 
         try{
             $inapp = new \Google_Service_AndroidPublisher($client);
-            $data = $inapp->purchases_products->get($this->payload->getPackageName(), $this->payload->getProductId(), $this->payload->getPurchaseToken());
+            $data = $inapp->purchases_products->get($this->payload->getPackageName(), $this->payload->getProducts()[0], $this->payload->getPurchaseToken());
             // check is purchase is valid
             if($data->getPurchaseState() != 0){
                 return false;

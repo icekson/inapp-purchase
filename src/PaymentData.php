@@ -13,13 +13,17 @@ interface PaymentData
 
     static public function createFromJSON($str): PaymentData;
 
-    public function getProductId();
+    public function getProducts(): array;
 
     public function getRawData();
 
-    public function getTransactionId();
+    public function getTransactions(): array;
 	
 	public function getPurchaseToken();
 
     public function getPayload();
+
+    public function addProduct($productId);
+
+    public function addTransaction($transactionId);
 }

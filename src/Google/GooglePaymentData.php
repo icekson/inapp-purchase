@@ -40,7 +40,7 @@ class GooglePaymentData implements PaymentData
      */
     protected $userId = "109030329278799942348"; // TODO: change to request parameter
 
-    protected $productId;
+    protected $products = [];
 
     /**
      * @var integer
@@ -51,7 +51,7 @@ class GooglePaymentData implements PaymentData
 
     protected $orderId;
 
-    protected $transactionId;
+    protected $transactions = [];
 	
 	protected $purchaseToken;
 
@@ -82,11 +82,11 @@ class GooglePaymentData implements PaymentData
         try {
             $this->validateJSON($tmp);
 
-            $this->transactionId = $data->TransactionID;
+            $this->addTransaction($data->TransactionID);
             $this->responseCode = $tmp->purchaseState;
             $this->purchaseToken = $tmp->purchaseToken;
             $this->packageName = $tmp->packageName;
-            $this->productId = $tmp->productId;
+            $this->addProduct($tmp->productId);
             $this->timestamp = $tmp->purchaseTime;
             $this->orderId = $tmp->orderId;
 
@@ -220,11 +220,6 @@ class GooglePaymentData implements PaymentData
         return json_encode($this->getPayload());
     }
 
-    public function getTransactionId()
-    {
-        return $this->transactionId;
-    }
-
 
     /**
      * @param $str
@@ -235,15 +230,10 @@ class GooglePaymentData implements PaymentData
         return new GooglePaymentData($str);
     }
 
-    public function getProductId()
-    {
-        return $this->productId;
-    }
-
     public function getRawData()
     {
         return [
-            'productId' => $this->productId,
+            'productId' => $this->products[0],
             'orderId' => $this->orderId,
             'packageName' => $this->packageName,
             'purchaseState' => $this->responseCode,
@@ -251,6 +241,28 @@ class GooglePaymentData implements PaymentData
             'purchaseTime' => $this->timestamp,
             'signature' => $this->signature
         ];
+    }
+
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    public function getTransactions(): array
+    {
+        return $this->transactions;
+    }
+
+    public function addProduct($productId)
+    {
+        $this->products[] = $productId;
+        return $this;
+    }
+
+    public function addTransaction($transactionId)
+    {
+        $this->transactions[] = $transactionId;
+        return $this;
     }
 
 

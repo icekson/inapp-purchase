@@ -7,11 +7,11 @@ class ApplePaymentData implements PaymentData
 {
    protected $payload;
 
-    protected $productId;
+    protected $products = [];
 
     protected $receiptData;
 
-    protected $transactionId;
+    protected $transactions = [];
 
     protected $errors = [];
 
@@ -29,15 +29,14 @@ class ApplePaymentData implements PaymentData
             $this->validateJSON($paymentData);
             $tmp = $paymentData;
             $this->payload = $tmp->Payload;
-            $this->transactionId = $tmp->TransactionID;
         }catch (\InvalidArgumentException $ex){
             $this->errors[] = $ex->getMessage();
         }
     }
 
-    public function getTransactionId()
+    public function getTransactions(): array
     {
-        return $this->transactionId;
+        return $this->transactions;
     }
 
 
@@ -65,19 +64,22 @@ class ApplePaymentData implements PaymentData
     /**
      * @return mixed
      */
-    public function getProductId()
+    public function getProducts(): array
     {
-        return $this->productId;
+        return $this->products;
     }
 
-    /**
-     * @param mixed $productId
-     */
-    public function setProductId($productId)
+    public function addProduct($productId)
     {
-        $this->productId = $productId;
+        $this->products[] = $productId;
+        return $this;
     }
 
+    public function addTransaction($transactionId)
+    {
+        $this->transactions[] = $transactionId;
+        return $this;
+    }
 
 
     private function validateJSON($json)

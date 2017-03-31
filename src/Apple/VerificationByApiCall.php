@@ -42,11 +42,13 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
 
         $respBody = $response->getBody();
         $resp = json_decode($respBody->getContents());
-        $res = !empty($resp) && $resp->status === self::STATUS_OK && !empty($resp->receipt->in_app) && isset($resp->receipt->in_app[0]->transaction_id) && $resp->receipt->in_app[0]->transaction_id == $this->payload->getTransactionId();
+        $res = !empty($resp) && $resp->status === self::STATUS_OK && !empty($resp->receipt->in_app);
 
         if($res){
-            $productId = !empty($resp->receipt->in_app[0]) ? $resp->receipt->in_app[0]->product_id : $this->payload->getProductId();
-            $this->payload->setProductId($productId);
+            foreach ($resp->receipt->in_app as $item) {
+                $this->payload->addProduct($item->product_id);
+                $this->payload->addTransaction($item->transaction_id);
+            }
             $this->payload->setRawData($resp->receipt);
         }
         return $res;
