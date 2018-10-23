@@ -37,7 +37,7 @@ class GoogleVerificationConfig extends VerificationConfig
     /**
      * @return string
      */
-    public function getPackageName(): string
+    public function getPackageName()
     {
         return $this->packageName;
     }
@@ -46,7 +46,7 @@ class GoogleVerificationConfig extends VerificationConfig
     /**
      * @return string
      */
-    public function getPublicKey(): string
+    public function getPublicKey()
     {
         return $this->publicKey;
     }
@@ -54,7 +54,7 @@ class GoogleVerificationConfig extends VerificationConfig
     /**
      * @return string
      */
-    public function getPrivateAccessKey(): string
+    public function getPrivateAccessKey()
     {
         return $this->privateAccessKey;
     }
@@ -62,7 +62,7 @@ class GoogleVerificationConfig extends VerificationConfig
     /**
      * @return string
      */
-    public function getVerificationType(): string
+    public function getVerificationType()
     {
         return $this->verificationType;
     }
@@ -72,7 +72,7 @@ class GoogleVerificationConfig extends VerificationConfig
     /**
      * @return string
      */
-    public function getMode(): string
+    public function getMode()
     {
         return $this->mode;
     }
@@ -80,7 +80,7 @@ class GoogleVerificationConfig extends VerificationConfig
     /**
      * @return int
      */
-    public function getSignatureAlgorithm(): int
+    public function getSignatureAlgorithm()
     {
         return $this->signAlgorithm;
     }

@@ -32,7 +32,7 @@ abstract class VerificationByApiCall implements VerificationStrategy
      * @return bool
      * @throws VerificationException
      */
-    abstract public function verify(): bool;
+    abstract public function verify();
 
 
 }

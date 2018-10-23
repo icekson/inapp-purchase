@@ -12,5 +12,5 @@ interface PaymentDataContainerInterface{
     /**
      * @return PaymentData
      */
-    public function getPaymentData(): PaymentData;
+    public function getPaymentData();
 }

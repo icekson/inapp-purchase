@@ -16,10 +16,16 @@ use Psr\Log\LoggerInterface;
 class PaymentValidator implements VerificationInterface
 {
 
-    const TYPE_GOOGLE_PLAY = "GooglePlay";
-    const TYPE_APPLE_STORE = "AppleAppStore";
+    const TYPE_GOOGLE_PLAY = "android-playstore";
+    const TYPE_APPLE_STORE = "ios-appstore";
 
+    /**
+     * @var PaymentData
+     */
     private $paymentData;
+    /**
+     * @var null|LoggerInterface
+     */
     protected $logger;
 
     /**
@@ -33,11 +39,11 @@ class PaymentValidator implements VerificationInterface
             $this->paymentData = $paymentData;
         } else {
 
-            if(!isset($paymentData->Store) || !in_array($paymentData->Store, [self::TYPE_GOOGLE_PLAY, self::TYPE_APPLE_STORE])){
+            if(!isset($paymentData->type) || !in_array($paymentData->type, [self::TYPE_GOOGLE_PLAY, self::TYPE_APPLE_STORE])){
                 throw new \InvalidArgumentException("Invalid Store type is given");
             }
 
-            $this->paymentData = self::createPaymentDataForPlatform($paymentData->Store, $paymentData);
+            $this->paymentData = self::createPaymentDataForPlatform($paymentData->type, $paymentData);
         }
         $this->verificationStrategy = $strategy;
         $this->logger = null;
@@ -76,7 +82,7 @@ class PaymentValidator implements VerificationInterface
      * @return bool
      * @throws VerificationException
      */
-    public function verify(): bool
+    public function verify()
     {
 
         if($this->verificationStrategy === null){
@@ -98,7 +104,7 @@ class PaymentValidator implements VerificationInterface
     /**
      * @return PaymentData
      */
-    public function getPaymentData(): PaymentData
+    public function getPaymentData()
     {
         return $this->paymentData;
     }
@@ -108,7 +114,7 @@ class PaymentValidator implements VerificationInterface
      * @param $data
      * @return PaymentData
      */
-    static private function createPaymentDataForPlatform($type, $data): PaymentData
+    static private function createPaymentDataForPlatform($type, $data)
     {
         $res = null;
         switch($type){

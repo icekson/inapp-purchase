@@ -13,7 +13,7 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
 {
 
 
-    public function verify(): bool
+    public function verify()
     {
         if (!$this->payload->isLicensed()) {
             return false;

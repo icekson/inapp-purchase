@@ -55,6 +55,8 @@ class GooglePaymentData implements PaymentData
 	
 	protected $purchaseToken;
 
+	protected $autoRenewing = false;
+
     protected $errors = [];
 
     /**
@@ -66,15 +68,14 @@ class GooglePaymentData implements PaymentData
     {
         $data = $responseData;
 
-        if (!$data || !isset($data->Payload)) {
-            throw new \InvalidArgumentException("Invalid response data, data->Payload->json");
+        if (!$data || !isset($data->receipt)) {
+            throw new \InvalidArgumentException("Invalid response data, data->receipt");
         }
 
-        $jsonData = json_decode($data->Payload);
-        $tmp = json_decode($jsonData->json);
+        $tmp = json_decode($data->receipt);
         if (empty($tmp->orderId)) {
-            if (!empty($data->TransactionID)) {
-                $tmp->orderId = $data->TransactionID;
+            if (!empty($data->id)) {
+                $tmp->orderId = $data->id;
             } else {
                 $tmp->orderId = $tmp->purchaseTime;
             }
@@ -82,15 +83,16 @@ class GooglePaymentData implements PaymentData
         try {
             $this->validateJSON($tmp);
 
-            $this->addTransaction($data->TransactionID);
+            $this->addTransaction($data->id);
             $this->responseCode = $tmp->purchaseState;
             $this->purchaseToken = $tmp->purchaseToken;
             $this->packageName = $tmp->packageName;
             $this->addProduct($tmp->productId);
             $this->timestamp = $tmp->purchaseTime;
             $this->orderId = $tmp->orderId;
+            $this->autoRenewing = $tmp->autoRenewing;
 
-            $this->signature = $jsonData->signature;
+            $this->signature = $data->signature;
 
         } catch (\InvalidArgumentException $ex) {
             $this->errors[] = $ex->getMessage();
@@ -215,7 +217,7 @@ class GooglePaymentData implements PaymentData
     /**
      * @return string
      */
-    public function toString(): string
+    public function toString()
     {
         return json_encode($this->getPayload());
     }
@@ -225,7 +227,7 @@ class GooglePaymentData implements PaymentData
      * @param $str
      * @return GooglePaymentData
      */
-    public static function createFromJSON($str): PaymentData
+    public static function createFromJSON($str)
     {
         return new GooglePaymentData($str);
     }
@@ -239,16 +241,17 @@ class GooglePaymentData implements PaymentData
             'purchaseState' => $this->responseCode,
             'purchaseToken' => $this->purchaseToken,
             'purchaseTime' => $this->timestamp,
+            'autoRenewing' => $this->autoRenewing,
             'signature' => $this->signature
         ];
     }
 
-    public function getProducts(): array
+    public function getProducts()
     {
         return $this->products;
     }
 
-    public function getTransactions(): array
+    public function getTransactions()
     {
         return $this->transactions;
     }

@@ -22,7 +22,7 @@ class Factory
      * @param ConfigureInterface $config
      * @return VerificationConfig
      */
-    static public function createPlatformConfig($type, ConfigureInterface $config): VerificationConfig
+    static public function createPlatformConfig($type, ConfigureInterface $config)
     {
         $res = null;
         $inAppConfig = $config->get("inapp_purchase");

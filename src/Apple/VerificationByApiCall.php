@@ -32,7 +32,7 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
         $this->serviceUrl = $serviceUrl;
     }
 
-    public function verify(): bool
+    public function verify()
     {
         $receiptId = $this->payload->getPayload();
         $client = new \Guzzlehttp\Client();

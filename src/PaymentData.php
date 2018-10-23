@@ -9,15 +9,25 @@ namespace Icekson\InAppPurchase;
 
 interface PaymentData
 {
-    public function toString(): string;
+    public function toString();
 
-    static public function createFromJSON($str): PaymentData;
+    /**
+     * @param $str
+     * @return PaymentData
+     */
+    static public function createFromJSON($str);
 
-    public function getProducts(): array;
+    /**
+     * @return array
+     */
+    public function getProducts();
 
     public function getRawData();
 
-    public function getTransactions(): array;
+    /**
+     * @return array
+     */
+    public function getTransactions();
 	
 	public function getPurchaseToken();
 

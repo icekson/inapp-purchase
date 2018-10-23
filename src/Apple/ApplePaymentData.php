@@ -28,13 +28,13 @@ class ApplePaymentData implements PaymentData
 
             $this->validateJSON($paymentData);
             $tmp = $paymentData;
-            $this->payload = $tmp->Payload;
+            $this->payload = $tmp->receipt;
         }catch (\InvalidArgumentException $ex){
             $this->errors[] = $ex->getMessage();
         }
     }
 
-    public function getTransactions(): array
+    public function getTransactions()
     {
         return $this->transactions;
     }
@@ -64,7 +64,7 @@ class ApplePaymentData implements PaymentData
     /**
      * @return mixed
      */
-    public function getProducts(): array
+    public function getProducts()
     {
         return $this->products;
     }
@@ -88,8 +88,8 @@ class ApplePaymentData implements PaymentData
             throw new \InvalidArgumentException("Invalid or empty json is given");
         }
 
-        if (!isset($json->Payload) || empty($json->Payload)) {
-            throw new \InvalidArgumentException("Invalid parameter Payload");
+        if (!isset($json->receipt) || empty($json->receipt)) {
+            throw new \InvalidArgumentException("Invalid parameter receipt");
         }
     }
 
@@ -97,7 +97,7 @@ class ApplePaymentData implements PaymentData
     /**
      * @return string
      */
-    public function toString(): string
+    public function toString()
     {
         return json_encode(["receipt-data" => $this->payload]);
     }
@@ -106,7 +106,7 @@ class ApplePaymentData implements PaymentData
      * @param $str
      * @return PaymentData
      */
-    static public function createFromJSON($str): PaymentData
+    static public function createFromJSON($str)
     {
         return new ApplePaymentData($str);
     }

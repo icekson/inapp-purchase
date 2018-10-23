@@ -42,7 +42,7 @@ class VerificationBySignature implements VerificationStrategy
      * @return bool
      * @throws VerificationException
      */
-    public function verify(): bool
+    public function verify()
     {
         $payload = $this->payload->toString();
         $signature = str_replace('\\', '', $this->signature);

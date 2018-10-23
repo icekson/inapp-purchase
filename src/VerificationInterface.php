@@ -12,6 +12,6 @@ interface VerificationInterface
     /**
      * @return bool
      */
-    public function verify(): bool;
+    public function verify();
 
 }
