@@ -32,7 +32,7 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
             $data = $inapp->$purchaseType->get($this->payload->getPackageName(), $this->payload->getProducts()[0], $this->payload->getPurchaseToken());
             $now = time() * 1000;
             // check is purchase is valid
-            if(($this->payload->isSubscription() && ($data->getCancelReason() != 0 || $data->gestExpiryTimeMillis() < $now) ) ||
+            if(($this->payload->isSubscription() && ($data->getCancelReason() != 0 || $data->getExpiryTimeMillis() < $now) ) ||
                 !$this->payload->isSubscription() && $data->getPurchaseState() != 0){
                 return false;
             }
