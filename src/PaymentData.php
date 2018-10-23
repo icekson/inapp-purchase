@@ -18,6 +18,11 @@ interface PaymentData
     static public function createFromJSON($str);
 
     /**
+     * @return string
+     */
+    public function getPlatformType();
+
+    /**
      * @return array
      */
     public function getProducts();

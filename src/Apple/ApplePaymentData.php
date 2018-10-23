@@ -2,10 +2,11 @@
 namespace Icekson\InAppPurchase\Apple;
 
 use Icekson\InAppPurchase\PaymentData;
+use Icekson\InAppPurchase\PaymentValidator;
 
 class ApplePaymentData implements PaymentData
 {
-   protected $payload;
+    protected $payload;
 
     protected $products = [];
 
@@ -37,6 +38,11 @@ class ApplePaymentData implements PaymentData
     public function getTransactions()
     {
         return $this->transactions;
+    }
+
+    public function getPlatformType()
+    {
+        return PaymentValidator::TYPE_APPLE_STORE;
     }
 
 

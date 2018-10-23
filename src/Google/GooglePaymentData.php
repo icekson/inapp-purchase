@@ -2,6 +2,7 @@
 
 namespace Icekson\InAppPurchase\Google;
 use Icekson\InAppPurchase\PaymentData;
+use Icekson\InAppPurchase\PaymentValidator;
 
 /**
  * A representation of the data returned by the licensing service
@@ -97,6 +98,11 @@ class GooglePaymentData implements PaymentData
         } catch (\InvalidArgumentException $ex) {
             $this->errors[] = $ex->getMessage();
         }
+    }
+
+    public function getPlatformType()
+    {
+        return PaymentValidator::TYPE_GOOGLE_PLAY;
     }
 
     private function validateJSON($json)

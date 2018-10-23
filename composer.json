@@ -2,6 +2,7 @@
     "name": "icekson/inapp-purchase",
     "description": "Simple library for verification of in-app purchases on server side",    
     "require": {
+        "php" : "^5.5 || ^7.0",
         "google/apiclient": "^2.1",
 		"icekson/utils": "dev-master",
         "guzzlehttp/guzzle": "~5.2|~6.0",
