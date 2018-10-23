@@ -45,6 +45,11 @@ class ApplePaymentData implements PaymentData
         return PaymentValidator::TYPE_APPLE_STORE;
     }
 
+    public function isSubscription()
+    {
+        return false;
+    }
+
 
     /**
      * @return mixed

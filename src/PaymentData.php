@@ -41,4 +41,6 @@ interface PaymentData
     public function addProduct($productId);
 
     public function addTransaction($transactionId);
+
+    public function isSubscription();
 }

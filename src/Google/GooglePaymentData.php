@@ -228,6 +228,11 @@ class GooglePaymentData implements PaymentData
         return json_encode($this->getPayload());
     }
 
+    public function isSubscription()
+    {
+        return $this->autoRenewing;
+    }
+
 
     /**
      * @param $str
