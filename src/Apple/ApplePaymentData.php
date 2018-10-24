@@ -16,6 +16,8 @@ class ApplePaymentData implements PaymentData
 
     protected $errors = [];
 
+    protected $expirationTime = null;
+
     /**
      * ApplePaymentData constructor.
      * @param $paymentData
@@ -131,5 +133,29 @@ class ApplePaymentData implements PaymentData
     {
         $this->receiptData = $data;
     }
+
+    public function setExpirationTime($time)
+    {
+        $this->expirationTime = $time;
+    }
+
+    public function getExpirationTime()
+    {
+        return $this->expirationTime;
+    }
+
+    public function getPrice()
+    {
+        if(isset(((array)$this->receiptData)['price'])){
+            return ((array)$this->receiptData)['price'];
+        }
+        return 0;
+    }
+
+    public function getPurchaseTime()
+    {
+        // TODO: Implement getPurchaseTime() method.
+    }
+
 
 }

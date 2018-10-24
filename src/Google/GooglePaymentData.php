@@ -60,6 +60,10 @@ class GooglePaymentData implements PaymentData
 
     protected $errors = [];
 
+    protected $expirationTime = null;
+
+    protected $rawData = [];
+
     /**
      * ResponseData constructor.
      * @param $responseData
@@ -198,7 +202,7 @@ class GooglePaymentData implements PaymentData
      *
      * @return double
      */
-    public function getTimestamp()
+    public function getPurchaseTime()
     {
         return (double)$this->timestamp;
     }
@@ -245,7 +249,7 @@ class GooglePaymentData implements PaymentData
 
     public function getRawData()
     {
-        return [
+        return array_merge([
             'productId' => $this->products[0],
             'orderId' => $this->orderId,
             'packageName' => $this->packageName,
@@ -254,7 +258,12 @@ class GooglePaymentData implements PaymentData
             'purchaseTime' => $this->timestamp,
             'autoRenewing' => $this->autoRenewing,
             'signature' => $this->signature
-        ];
+        ], (array)$this->rawData);
+    }
+
+    public function setRawData($data)
+    {
+        $this->rawData = $data;
     }
 
     public function getProducts()
@@ -277,6 +286,26 @@ class GooglePaymentData implements PaymentData
     {
         $this->transactions[] = $transactionId;
         return $this;
+    }
+
+    public function setExpirationTime($time)
+    {
+        // TODO: Implement setExpirationTime() method.
+        $this->expirationTime = $time;
+    }
+
+    public function getExpirationTime()
+    {
+        return $this->expirationTime;
+    }
+
+    public function getPrice()
+    {
+        $raw = $this->getRawData();
+        if(isset($raw['priceAmountMicros'])){
+            return round($raw['priceAmountMicros']/1000000, 2);
+        }
+        return 0;
     }
 
 

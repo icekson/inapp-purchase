@@ -28,6 +28,8 @@ interface PaymentData
     public function getProducts();
 
     public function getRawData();
+    public function setRawData($data);
+
 
     /**
      * @return array
@@ -43,4 +45,12 @@ interface PaymentData
     public function addTransaction($transactionId);
 
     public function isSubscription();
+
+    public function setExpirationTime($time);
+
+    public function getExpirationTime();
+
+    public function getPrice();
+
+    public function getPurchaseTime();
 }
