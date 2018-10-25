@@ -264,6 +264,13 @@ class GooglePaymentData implements PaymentData
     public function setRawData($data)
     {
         $this->rawData = $data;
+        if(isset($data->purchaseToken)){
+            $this->purchaseToken = $data->purchaseToken;
+        }
+        if(isset($data->orderId)){
+            $this->orderId = $data->orderId;
+            $this->transactions = [$data->orderId];
+        }
     }
 
     public function getProducts()
