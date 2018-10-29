@@ -45,6 +45,14 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
         $res = !empty($resp) && $resp->status === self::STATUS_OK && !empty($resp->receipt->in_app);
 
         if($res){
+//            "1" - Customer canceled their subscription.
+//            "2" - Billing error; for example customer’s payment information was no longer valid.
+//            "3" - Customer did not agree to a recent price increase.
+//            "4" - Product was not available for purchase at the time of renewal.
+//            "5" - Unknown error.
+            if(isset($resp->receipt->in_app[0]->expiration_intent) && (int)$resp->receipt->in_app[0]->expiration_intent > 0){
+                return false;
+            }
             foreach ($resp->receipt->in_app as $item) {
                 $this->payload->addProduct($item->product_id);
                 $this->payload->addTransaction($item->transaction_id);

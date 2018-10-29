@@ -18,6 +18,8 @@ class ApplePaymentData implements PaymentData
 
     protected $expirationTime = null;
 
+    protected $purchaseTime = null;
+
     /**
      * ApplePaymentData constructor.
      * @param $paymentData
@@ -132,6 +134,19 @@ class ApplePaymentData implements PaymentData
     public function setRawData($data)
     {
         $this->receiptData = $data;
+
+
+        if(isset($data->in_app[0]) && isset($data->in_app[0]->expires_date)){
+            $date = new \DateTime($data->in_app[0]->expires_date);
+            $this->expirationTime = $date->getTimestamp();
+        }
+
+
+        if(isset($data->in_app[0]) && isset($data->in_app[0]->purchase_date)){
+            $date = new \DateTime($data->in_app[0]->purchase_date);
+            $this->purchaseTime = $date->getTimestamp();
+        }
+
     }
 
     public function setExpirationTime($time)
@@ -154,7 +169,7 @@ class ApplePaymentData implements PaymentData
 
     public function getPurchaseTime()
     {
-        // TODO: Implement getPurchaseTime() method.
+        return $this->purchaseTime;
     }
 
 
