@@ -31,7 +31,6 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
             $inapp = new \Google_Service_AndroidPublisher($client);
             $data = $inapp->$purchaseType->get($this->payload->getPackageName(), $this->payload->getProducts()[0], $this->payload->getPurchaseToken());
             $now = time() * 1000;
-            $this->payload->setExpirationTime(round($data->getExpiryTimeMillis()/1000));
             $this->payload->setRawData($data->toSimpleObject());
             // check is purchase is valid
             if(($this->payload->isSubscription() && ($data->getCancelReason() != 0 || $data->getExpiryTimeMillis() < $now) ) ||

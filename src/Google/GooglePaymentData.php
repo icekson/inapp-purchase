@@ -93,7 +93,7 @@ class GooglePaymentData implements PaymentData
             $this->purchaseToken = $tmp->purchaseToken;
             $this->packageName = $tmp->packageName;
             $this->addProduct($tmp->productId);
-            $this->timestamp = $tmp->purchaseTime;
+            $this->timestamp = round($tmp->purchaseTime / 1000, 0);
             $this->orderId = $tmp->orderId;
             $this->autoRenewing = $tmp->autoRenewing;
 
@@ -270,6 +270,9 @@ class GooglePaymentData implements PaymentData
         if(isset($data->orderId)){
             $this->orderId = $data->orderId;
             $this->transactions = [$data->orderId];
+        }
+        if(isset($data->expiryTimeMillis)){
+            $this->expiryTimeMillis = round($data->expiryTimeMillis / 1000);
         }
     }
 
