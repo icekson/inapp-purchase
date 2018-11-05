@@ -133,7 +133,7 @@ class ApplePaymentData implements PaymentData
 
     public function setRawData($data)
     {
-        $this->receiptData = $data;
+        $this->receiptData = (array)$data;
 
 
         if(isset($data->in_app[0]) && isset($data->in_app[0]->expires_date)){
