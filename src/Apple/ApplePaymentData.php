@@ -33,7 +33,7 @@ class ApplePaymentData implements PaymentData
 
             $this->validateJSON($paymentData);
             $tmp = $paymentData;
-            $this->payload = $tmp->receipt || $tmp->appStoreReceipt;
+            $this->payload = isset( $tmp->receipt) ?  $tmp->receipt : $tmp->appStoreReceipt;
         }catch (\InvalidArgumentException $ex){
             $this->errors[] = $ex->getMessage();
         }
