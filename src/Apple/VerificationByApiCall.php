@@ -26,9 +26,9 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
 
     private $serviceUrl = "";
 
-    public function __construct(PaymentData $payload, $serviceUrl)
+    public function __construct(PaymentData $payload, $serviceUrl, $secret = null)
     {
-        $this->payload = $payload;
+        parent::__construct($payload, $secret);        
         $this->serviceUrl = $serviceUrl;
     }
 
@@ -37,7 +37,7 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
         $receiptId = $this->payload->getPayload();
         $client = new \Guzzlehttp\Client();
         $response = $client->request("POST", $this->serviceUrl . "/verifyReceipt", [
-            \GuzzleHttp\RequestOptions::BODY => json_encode(['receipt-data' => $receiptId])
+            \GuzzleHttp\RequestOptions::BODY => json_encode(['receipt-data' => $receiptId, 'password' => $this->privateKey])
         ]);
 
         $respBody = $response->getBody();

@@ -11,12 +11,13 @@ use Icekson\Config\ConfigureInterface;
 class AppleVerificationConfig extends VerificationConfig
 {
 
-    private $serices = [
+    private $services = [
         self::PURCHASE_MODE_PRODUCTION => "https://buy.itunes.apple.com",
         self::PURCHASE_MODE_SANDBOX => "https://sandbox.itunes.apple.com",
     ];
 
     private $verificationApiUrl = "";
+    private $password = null;
 
     private $mode = self::PURCHASE_MODE_PRODUCTION;
 
@@ -32,6 +33,13 @@ class AppleVerificationConfig extends VerificationConfig
     {
         return $this->verificationApiUrl;
     }
+    
+    /**
+    * @returns string
+    **/
+    public function getPassword() {
+        return $this->password;        
+    }
 
     /**
      * @return string
@@ -46,14 +54,16 @@ class AppleVerificationConfig extends VerificationConfig
         parent::fromArray($options);
 
         $this->mode = isset($options["mode"]) ? $options["mode"] : self::PURCHASE_MODE_PRODUCTION;
-        $this->verificationApiUrl = $this->serices[$this->mode];
+        $this->password = isset($options["password"]) ? $options["password"] : null;
+        $this->verificationApiUrl = $this->services[$this->mode];
     }
 
     public function toArray()
     {
         return [
             "mode" => $this->mode,
-            "verification_api_url" => $this->verificationApiUrl
+            "verification_api_url" => $this->verificationApiUrl,
+            "password" => $this->password
         ];
     }
 
