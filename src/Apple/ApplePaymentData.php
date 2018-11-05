@@ -160,10 +160,7 @@ class ApplePaymentData implements PaymentData
     }
 
     public function getPrice()
-    {
-        if(isset(((array)$this->receiptData)['price'])){
-            return ((array)$this->receiptData)['price'];
-        }
+    {       
         return 0;
     }
 
