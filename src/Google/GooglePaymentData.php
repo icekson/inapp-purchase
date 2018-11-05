@@ -43,6 +43,7 @@ class GooglePaymentData implements PaymentData
 
     protected $products = [];
 
+
     /**
      * @var integer
      */
@@ -316,6 +317,16 @@ class GooglePaymentData implements PaymentData
             return round($raw['priceAmountMicros']/1000000, 2);
         }
         return 0;
+    }
+
+    public function hasErrors()
+    {
+        return count($this->errors) > 0;
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
     }
 
 

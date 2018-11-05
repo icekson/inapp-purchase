@@ -53,4 +53,9 @@ interface PaymentData
     public function getPrice();
 
     public function getPurchaseTime();
+
+    public function hasErrors();
+
+    public function getErrors();
+
 }

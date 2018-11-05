@@ -169,5 +169,14 @@ class ApplePaymentData implements PaymentData
         return $this->purchaseTime;
     }
 
+    public function hasErrors()
+    {
+        return count($this->errors) > 0;
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 
 }

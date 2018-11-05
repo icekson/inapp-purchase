@@ -7,6 +7,7 @@
 namespace Icekson\InAppPurchase\Apple;
 
 
+use http\Exception\InvalidArgumentException;
 use Icekson\InAppPurchase\Exception\VerificationException;
 use Icekson\InAppPurchase\PaymentData;
 
@@ -34,6 +35,9 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
 
     public function verify()
     {
+        if($this->payload->hasErrors()){
+            throw new \InvalidArgumentException(implode(", \n", $this->payload->getErrors()));
+        }
         $receiptId = $this->payload->getPayload();
         $client = new \GuzzleHttp\Client();
         $response = $client->request("POST", $this->serviceUrl . "/verifyReceipt", [
