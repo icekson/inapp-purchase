@@ -103,7 +103,7 @@ class ApplePaymentData implements PaymentData
             throw new \InvalidArgumentException("Invalid or empty json is given");
         }
 
-        if (!isset($json->receipt) || empty($json->receipt)) {
+        if ((!isset($json->receipt) || empty($json->receipt)) && (!isset($json->appStoreReceipt) || empty($json->appStoreReceipt))) {
             throw new \InvalidArgumentException("Invalid parameter receipt");
         }
     }
