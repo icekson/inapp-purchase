@@ -35,7 +35,7 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
     public function verify()
     {
         $receiptId = $this->payload->getPayload();
-        $client = new \Guzzlehttp\Client();
+        $client = new \GuzzleHttp\Client();
         $response = $client->request("POST", $this->serviceUrl . "/verifyReceipt", [
             \GuzzleHttp\RequestOptions::BODY => json_encode(['receipt-data' => $receiptId, 'password' => $this->privateKey])
         ]);
