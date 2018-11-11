@@ -61,13 +61,13 @@ class VerificationByApiCall extends \Icekson\InAppPurchase\Strategy\Verification
             usort($resp->receipt->in_app, function ($a, $b) {
                 return $b->expires_date_ms - $a->expires_date_ms;
             });
-
-            $inApp = array_filter($resp->receipt->in_app, function ($a) use ($now) {
-                return $a->expires_date_ms < $now->getTimestamp()*1000;
-            });
-            if(empty($inApp)){
-                return false;
-            }
+            $inApp = $resp->receipt->in_app;
+//            $inApp = array_filter($resp->receipt->in_app, function ($a) use ($now) {
+//                return $a->expires_date_ms >= $now->getTimestamp()*1000;
+//            });
+//            if(empty($inApp)){
+//                return false;
+//            }
             foreach ($inApp as $item) {
                 $this->payload->addProduct($item->product_id);
                 $this->payload->addTransaction($item->transaction_id);
